@@ -6,6 +6,11 @@ import 'chooselang_item_model.dart';
 class ChooselangModel {
   Rx<List<ChooselangItemModel>> chooselangItemList =
       Rx([
-        ChooselangItemModel(results: "German".obs),
+        ChooselangItemModel(results: ChooseLangItemListModel(lang: Rx("German")).obs),
+        ChooselangItemModel(results: ChooseLangItemListModel(lang: Rx("French")).obs),
+        ChooselangItemModel(results: ChooseLangItemListModel(lang: Rx("English")).obs),
+        ChooselangItemModel(results: ChooseLangItemListModel(lang: Rx("Hindi")).obs),
+        ChooselangItemModel(results: ChooseLangItemListModel(lang: Rx("Punjabi")).obs),
+        ChooselangItemModel(results: ChooseLangItemListModel(lang: Rx("Russian")).obs),
       ]);
 }

@@ -103,6 +103,7 @@ class GetstartedScreen extends GetWidget<GetstartedController> {
     return CustomFloatingTextField(
         controller: controller.nameController,
         labelText: "lbl_name".tr,
+        autofocus: false,
         labelStyle: theme.textTheme.bodyMedium!,
         hintText: "lbl_name".tr,
         validator: (value) {
@@ -118,6 +119,7 @@ class GetstartedScreen extends GetWidget<GetstartedController> {
     return CustomFloatingTextField(
         controller: controller.emailController,
         labelText: "lbl_e_mail".tr,
+        autofocus: false,
         labelStyle: theme.textTheme.bodyMedium!,
         hintText: "lbl_e_mail".tr,
         textInputType: TextInputType.emailAddress,
@@ -134,6 +136,7 @@ class GetstartedScreen extends GetWidget<GetstartedController> {
     return Obx(() => CustomFloatingTextField(
         controller: controller.passwordController,
         labelText: "lbl_password".tr,
+        autofocus: false,
         labelStyle: theme.textTheme.bodyMedium!,
         hintText: "lbl_password".tr,
         textInputAction: TextInputAction.done,

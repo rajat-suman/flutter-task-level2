@@ -5,11 +5,12 @@ import 'package:app_s_application2/widgets/custom_elevated_button.dart';
 import 'package:app_s_application2/widgets/custom_floating_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:path/path.dart';
 
 import 'controller/completeprofile_controller.dart';
 
 class CompleteprofileScreen extends GetWidget<CompleteprofileController> {
-   CompleteprofileScreen({Key? key}) : super(key: key);
+  CompleteprofileScreen({Key? key}) : super(key: key);
   dynamic argumentData = Get.arguments;
 
   @override
@@ -46,11 +47,11 @@ class CompleteprofileScreen extends GetWidget<CompleteprofileController> {
                               SizedBox(height: 22.v),
                               Divider(indent: 3.h),
                               SizedBox(height: 23.v),
-                              _buildChooseYourStudy(),
+                              _buildChooseYourStudy(context),
                               SizedBox(height: 16.v),
                               _buildNameOfUniversity(),
                               SizedBox(height: 16.v),
-                              _buildChooseSemester(),
+                              _buildChooseSemester(context),
                               SizedBox(height: 16.v),
                               _buildChooseLanguage(),
                               SizedBox(height: 31.v),
@@ -124,8 +125,13 @@ class CompleteprofileScreen extends GetWidget<CompleteprofileController> {
   }
 
   /// Section Widget
-  Widget _buildChooseYourStudy() {
+  Widget _buildChooseYourStudy(BuildContext context) {
     return CustomFloatingTextField(
+        autofocus: false,
+        readOnly: true,
+        onTapField: (){
+          _showBottomSheetStudyBranch(context);
+        },
         controller: controller.chooseYourStudyController,
         labelText: "lbl_study_branch".tr,
         labelStyle: theme.textTheme.bodyMedium!,
@@ -141,15 +147,21 @@ class CompleteprofileScreen extends GetWidget<CompleteprofileController> {
   Widget _buildNameOfUniversity() {
     return CustomFloatingTextField(
         controller: controller.nameOfUniversityController,
+        autofocus: false,
         labelText: "lbl_univeristy".tr,
         labelStyle: theme.textTheme.bodyMedium!,
         hintText: "lbl_univeristy".tr);
   }
 
   /// Section Widget
-  Widget _buildChooseSemester() {
+  Widget _buildChooseSemester(BuildContext context) {
     return CustomFloatingTextField(
         controller: controller.chooseSemesterController,
+        autofocus: false,
+        onTapField: (){
+          _showBottomSheetSemester(context);
+        },
+        readOnly: true,
         labelText: "lbl_semester".tr,
         labelStyle: theme.textTheme.bodyMedium!,
         hintText: "lbl_semester".tr,
@@ -214,26 +226,28 @@ class CompleteprofileScreen extends GetWidget<CompleteprofileController> {
           gravity: ToastGravity.BOTTOM,
           textColor: Colors.orangeAccent,
           fontSize: 16.0.h);
-    } /*else if (controller.chooseLanguageController.text.trim().isEmpty) {
+    }
+    /*else if (controller.chooseLanguageController.text.trim().isEmpty) {
       Fluttertoast.showToast(
           msg: "Please select language",
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.BOTTOM,
           textColor: Colors.orangeAccent,
           fontSize: 16.0.h);
-    } */else {
+    } */
+    else {
       Map<String, String> map = Map();
       map['studyBranch'] = controller.chooseYourStudyController.text;
       map['university'] = controller.nameOfUniversityController.text;
       map['semester'] = controller.chooseSemesterController.text;
       map['language'] = controller.chooseLanguageController.text;
 
-      controller.apiClient.updateUser(argumentData['userId'], map)!.then((value) => {
-            Get.toNamed(
-              AppRoutes.profilepicScreen,
-              arguments: {'userId':argumentData['userId']}
-            )
-          });
+      controller.apiClient
+          .updateUser(argumentData['userId'], map)!
+          .then((value) => {
+                Get.toNamed(AppRoutes.profilepicScreen,
+                    arguments: {'userId': argumentData['userId']})
+              });
     }
   }
 
@@ -241,4 +255,212 @@ class CompleteprofileScreen extends GetWidget<CompleteprofileController> {
   onTapArrowLeft() {
     Get.back();
   }
+
+  _showBottomSheetStudyBranch(BuildContext context) {
+    showModalBottomSheet<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return SizedBox(
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children:  <Widget>[
+                InkWell(
+                  onTap: (){
+                    controller.chooseYourStudyController.text = 'CSE';
+                    Navigator.pop(context);
+                  },
+                  child: Text('CSE',
+                      style:  theme.textTheme.displaySmall!.copyWith(
+                        fontSize: 18.fSize
+                      ),
+
+                  ),
+                ),
+                SizedBox(height: 10.h,),
+                InkWell(
+                  onTap: (){
+                    controller.chooseYourStudyController.text = 'Civil';
+                    Navigator.pop(context);
+                  },
+                  child: Text('Civil',
+                      style:  theme.textTheme.displaySmall!.copyWith(
+                        fontSize: 18.fSize
+                      ),
+
+                  ),
+                ),
+                SizedBox(height: 10.h,),
+                InkWell(
+                  onTap: (){
+                    controller.chooseYourStudyController.text = 'Mechanical';
+                    Navigator.pop(context);
+                    },
+                  child: Text('Mechanical',
+                      style:  theme.textTheme.displaySmall!.copyWith(
+                        fontSize: 18.fSize
+                      ),
+
+                  ),
+                ),
+                SizedBox(height: 10.h,),
+                InkWell(
+                  onTap: (){
+                    controller.chooseYourStudyController.text = 'Electrical';
+                    Navigator.pop(context);
+                    },
+                  child: Text('Electrical',
+                      style:  theme.textTheme.displaySmall!.copyWith(
+                        fontSize: 18.fSize
+                      ),
+
+                  ),
+                ),
+                SizedBox(height: 10.h,),
+                InkWell(
+                  onTap: (){
+                    controller.chooseYourStudyController.text = 'Electronics';
+                    Navigator.pop(context);
+                    },
+                  child: Text('Electronics',
+                      style:  theme.textTheme.displaySmall!.copyWith(
+                        fontSize: 18.fSize
+                      ),
+
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  _showBottomSheetSemester(BuildContext context) {
+    showModalBottomSheet<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return SizedBox(
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children:  <Widget>[
+                InkWell(
+                  onTap: (){
+                    controller.chooseSemesterController.text = '1st';
+                    Navigator.pop(context);
+                  },
+                  child: Text('1st',
+                      style:  theme.textTheme.displaySmall!.copyWith(
+                        fontSize: 18.fSize
+                      ),
+
+                  ),
+                ),
+                SizedBox(height: 10.h,),
+                InkWell(
+                  onTap: (){
+                    controller.chooseSemesterController.text = '2nd';
+                    Navigator.pop(context);
+                  },
+                  child: Text('2nd',
+                      style:  theme.textTheme.displaySmall!.copyWith(
+                        fontSize: 18.fSize
+                      ),
+
+                  ),
+                ),
+                SizedBox(height: 10.h,),
+                InkWell(
+                  onTap: (){
+                    controller.chooseSemesterController.text = '3rd';
+                    Navigator.pop(context);
+                  },
+                  child: Text('3rd',
+                      style:  theme.textTheme.displaySmall!.copyWith(
+                        fontSize: 18.fSize
+                      ),
+
+                  ),
+                ),
+                SizedBox(height: 10.h,),
+                InkWell(
+                  onTap: (){
+                    controller.chooseSemesterController.text = '4th';
+                    Navigator.pop(context);
+                  },
+                  child: Text('4th',
+                      style:  theme.textTheme.displaySmall!.copyWith(
+                        fontSize: 18.fSize
+                      ),
+
+                  ),
+                ),
+                SizedBox(height: 10.h,),
+                InkWell(
+                  onTap: (){
+                    controller.chooseSemesterController.text = '5th';
+                    Navigator.pop(context);
+                  },
+                  child: Text('5th',
+                      style:  theme.textTheme.displaySmall!.copyWith(
+                        fontSize: 18.fSize
+                      ),
+
+                  ),
+                ),
+                SizedBox(height: 10.h,),
+                InkWell(
+                  onTap: (){
+                    controller.chooseSemesterController.text = '6th';
+                    Navigator.pop(context);
+                  },
+                  child: Text('6th',
+                      style:  theme.textTheme.displaySmall!.copyWith(
+                        fontSize: 18.fSize
+                      ),
+
+                  ),
+                ),
+                SizedBox(height: 10.h,),
+                InkWell(
+                  onTap: (){
+                    controller.chooseSemesterController.text = '7th';
+                    Navigator.pop(context);
+                  },
+                  child: Text('7th',
+                      style:  theme.textTheme.displaySmall!.copyWith(
+                        fontSize: 18.fSize
+                      ),
+
+                  ),
+                ),
+                SizedBox(height: 10.h,),
+                InkWell(
+                  onTap: (){
+                    controller.chooseSemesterController.text = '8th';
+                    Navigator.pop(context);
+                  },
+                  child: Text('8th',
+                      style:  theme.textTheme.displaySmall!.copyWith(
+                        fontSize: 18.fSize
+                      ),
+
+                  ),
+                ),
+
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
 }
+

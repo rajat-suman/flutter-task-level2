@@ -102,7 +102,10 @@ class CustomFloatingTextField extends StatelessWidget {
         child: TextFormField(
           // canRequestFocus: false,
           onTap: (){
-            onTapField!();
+            if(onTapField!=null){
+              onTapField!();
+            }
+
           },
           readOnly: readOnly??false,
           enabled: enabled,

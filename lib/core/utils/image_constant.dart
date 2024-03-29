@@ -16,6 +16,10 @@ class ImageConstant {
   // CompleteProfile images
   static String imgArrowdown = '$imagePath/img_arrowdown.svg';
 
+  static String approved = '$imagePath/approved.png';
+
+  static String unchecked = '$imagePath/unchecked.png';
+
   // ChooseLang images
   static String imgSearch = '$imagePath/img_search.svg';
 

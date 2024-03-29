@@ -56,6 +56,9 @@ class ChooselangScreen extends GetWidget<ChooselangController> {
         actions: [
           AppbarSubtitle(
               text: "lbl_save".tr,
+              onTap: (){
+                onTapSave();
+              },
               margin: EdgeInsets.fromLTRB(15.h, 16.v, 15.h, 18.v))
         ]);
   }
@@ -82,11 +85,18 @@ class ChooselangScreen extends GetWidget<ChooselangController> {
   Widget _buildSave() {
     return CustomElevatedButton(
         text: "lbl_save".tr,
+        onPressed: (){
+          onTapSave();
+        },
         margin: EdgeInsets.only(left: 16.h, right: 16.h, bottom: 56.v));
   }
 
   /// Navigates to the previous screen.
   onTapArrowLeft() {
+    Get.back();
+  }  /// Navigates to the previous screen.
+  onTapSave() {
+    // controller.chooselangModelObj.value.chooselangItemList.value.map((e) => return e.va)
     Get.back();
   }
 }
